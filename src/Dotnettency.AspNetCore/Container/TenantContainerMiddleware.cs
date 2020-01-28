@@ -4,6 +4,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.AspNetCore.Builder;
 using Dotnettency.Container;
 using Dotnettency.Middleware;
+using System;
 
 namespace Dotnettency.AspNetCore.Container
 {
@@ -67,6 +68,10 @@ namespace Dotnettency.AspNetCore.Container
                 await _next?.Invoke(context);
                  //await swapContextRequestServices.ExecuteWithinSwappedRequestContainer(_next, context);
                 _logger.LogDebug("Restoring Request Container");
+            }
+            catch(Exception ex)
+            {
+                _logger.LogWarning(ex.Message);
             }
             finally
             {
